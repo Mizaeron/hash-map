@@ -3,8 +3,9 @@ const hashMap = () => {
   let tail = null;
   const capacity = 16;
   let currentCapacity = capacity;
+  capacityCounter = 0;
   const loadFactor = 0.75;
-  const bucketArray = Array.from({ length: capacity }).fill(null);
+  let bucketArray = Array.from({ length: capacity }).fill(null);
 
   function hash(key) {
     let hashCode = 0;
@@ -16,33 +17,35 @@ const hashMap = () => {
 
     return hashCode;
   }
-  function expandHashMap() {
-    let n = 0;
-    let currentLoadFactor = 0;
 
-    bucketArray.forEach((bucket) => {
-      if (bucket !== null) {
-        n++;
-      }
-    });
-
-    currentLoadFactor = n / currentCapacity;
-
-    if (currentLoadFactor > currentCapacity) {
-      //
-    }
-
-    console.log(n);
-    console.log(currentLoadFactor);
-  }
   return {
     set(key, value) {
       const hashCode = hash(key);
       let head = bucketArray[hashCode];
+      let currentLoadFactor = 0;
 
       if (!head) {
         bucketArray[hashCode] = nodeFactory(key, value, null);
-        expandHashMap();
+        capacityCounter++;
+        currentLoadFactor = capacityCounter / currentCapacity;
+        if (currentLoadFactor >= loadFactor) {
+          currentCapacity = currentCapacity * 2;
+          let newBucketArray = new Array(currentCapacity).fill(null);
+
+          bucketArray.forEach((bucket) => {
+            if (bucket === null) {
+              return;
+            } else {
+              let newHashCode = hash(bucket.key);
+              newBucketArray[newHashCode] = nodeFactory(
+                bucket.key,
+                value,
+                null,
+              );
+              bucketArray = newBucketArray;
+            }
+          });
+        }
         return;
       }
 
@@ -59,9 +62,8 @@ const hashMap = () => {
       cur.nextNode = nodeFactory(key, value, null);
     },
     array() {
-      expandHashMap();
-      // const count = expandHashMap();
-      // console.log(count);
+      // expandHashMap();
+      // console.log(capacityCounter);
       return bucketArray;
     },
   };
