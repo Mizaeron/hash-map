@@ -1,8 +1,8 @@
-export const nodeFactory = (value, nextNode = null) => {
+const nodeFactory = (value, nextNode = null) => {
   return { value, nextNode };
 };
 
-export const linkedListsFactory = () => {
+const linkedListsFactory = () => {
   let head = null;
   let tail = null;
   let length = 0;
@@ -16,8 +16,9 @@ export const linkedListsFactory = () => {
         tail.nextNode = newNode;
         tail = newNode;
       }
+      console.log(head);
       length++;
-      return this;
+      return newNode;
     },
     prepend(value) {
       const newNode = nodeFactory(value, head);
@@ -88,13 +89,21 @@ export const linkedListsFactory = () => {
   };
 };
 
-// const list = linkedListsFactory();
+const list = linkedListsFactory();
 // list.append("dog");
 // list.append("cat");
 // list.append("parrot");
-// list.append("hamster");
-// list.append("snake");
-// list.append("turtle");
+// console.log(list.append("hamster"));
+// console.log(list.append("snake"));
+// console.log(list.append("turtle"));
 
 // console.log(list.toString());
 // console.log(list.size());
+
+// const arr = [];
+// arr[0] = linkedListsFactory();
+
+// console.log(arr[0].append("hamster"));
+// console.log(arr[0].append("snake"));
+// console.log(arr[0].toString()); // ( hamster ) -> ( snake ) -> null
+// console.log(arr[0].size()); // 2
