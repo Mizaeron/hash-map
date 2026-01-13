@@ -1,10 +1,11 @@
 const hashMap = () => {
   let head = null;
-  let tail = null;
   const capacity = 16;
+
   let currentCapacity = capacity;
-  capacityCounter = 0;
+  let capacityCounter = 0;
   const loadFactor = 0.75;
+
   let bucketArray = Array.from({ length: capacity }).fill(null);
 
   function hash(key) {
@@ -88,6 +89,5 @@ test.set("jacket", "blue");
 test.set("kite", "pink");
 test.set("lion", "golden");
 test.set("barbies", "milky");
-test.set("breastam", "milfy");
 
 console.log(test.array());

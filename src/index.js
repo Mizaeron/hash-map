@@ -1,1 +1,1 @@
-import hashMap
+import { hashMap } from "./hash.js";
