@@ -1,7 +1,8 @@
 const hashMap = () => {
   let head = null;
-  const capacity = 16;
 
+  const capacity = 16;
+  let mama;
   let currentCapacity = capacity;
   let capacityCounter = 0;
   const loadFactor = 0.75;
