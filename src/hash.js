@@ -1,8 +1,8 @@
 const hashMap = () => {
+  // eslint-disable-next-line no-unused-vars
   let head = null;
 
   const capacity = 16;
-  let mama;
   let currentCapacity = capacity;
   let capacityCounter = 0;
   const loadFactor = 0.75;
@@ -63,6 +63,19 @@ const hashMap = () => {
 
       cur.nextNode = nodeFactory(key, value, null);
     },
+    get(key) {
+      if (key == null) return undefined;
+
+      for (let i = 0; i < bucketArray.length; i++) {
+        let node = bucketArray[i];
+        while (node) {
+          if (node.key === key) return node.value;
+          node = node.nextNode;
+        }
+      }
+
+      return undefined;
+    },
     array() {
       // expandHashMap();
       // console.log(capacityCounter);
@@ -91,4 +104,5 @@ test.set("kite", "pink");
 test.set("lion", "golden");
 test.set("barbies", "milky");
 
-console.log(test.array());
+// console.log(test.array());
+console.log(test.get("lion"));
