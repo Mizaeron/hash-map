@@ -1,5 +1,4 @@
 const hashMap = () => {
-  // eslint-disable-next-line no-unused-vars
   let head = null;
 
   const capacity = 16;
@@ -76,6 +75,17 @@ const hashMap = () => {
 
       return undefined;
     },
+    has(key) {
+      for (const k in bucketArray) {
+        let node = bucketArray[k];
+
+        if (node === null) {
+          continue;
+        } else if (node.key === key) {
+          return true;
+        } else return false;
+      }
+    },
     array() {
       // expandHashMap();
       // console.log(capacityCounter);
@@ -104,5 +114,5 @@ test.set("kite", "pink");
 test.set("lion", "golden");
 test.set("barbies", "milky");
 
-// console.log(test.array());
-console.log(test.get("lion"));
+console.log(test.array());
+console.log(test.has("elephants"));
