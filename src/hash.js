@@ -79,12 +79,12 @@ const hashMap = () => {
       for (const k in bucketArray) {
         let node = bucketArray[k];
 
-        if (node === null) {
-          continue;
-        } else if (node.key === key) {
-          return true;
-        } else return false;
+        while (node) {
+          if (node.key === key) return true;
+          node = node.nextNode;
+        }
       }
+      return false;
     },
     array() {
       // expandHashMap();
@@ -115,4 +115,4 @@ test.set("lion", "golden");
 test.set("barbies", "milky");
 
 console.log(test.array());
-console.log(test.has("elephants"));
+console.log(test.has("lion"));
