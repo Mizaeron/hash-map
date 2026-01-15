@@ -137,6 +137,17 @@ const hashMap = () => {
       }
       return arrayWithKeys;
     },
+    values() {
+      const values = [];
+      for (let i in bucketArray) {
+        let node = bucketArray[i];
+        while (node) {
+          values.push(node.value);
+          node = node.nextNode;
+        }
+      }
+      return values;
+    },
     array() {
       // expandHashMap();
       // console.log(capacityCounter);
@@ -166,6 +177,6 @@ test.set("lion", "golden");
 test.set("barbies", "milky");
 
 // console.log(test.length());
-console.log(test.keys());
+console.log(test.values());
 console.log(test.array());
 // console.log(test.remove("hats"));
