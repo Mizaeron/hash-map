@@ -22,7 +22,7 @@ const hashMap = () => {
   return {
     set(key, value) {
       const hashCode = hash(key);
-      let head = bucketArray[hashCode];
+      head = bucketArray[hashCode];
       let currentLoadFactor = 0;
 
       if (!head) {
@@ -86,6 +86,42 @@ const hashMap = () => {
       }
       return false;
     },
+    remove(key) {
+      for (let i = 0; i < bucketArray.length; i++) {
+        let node = bucketArray[i];
+        let prev = null;
+
+        while (node) {
+          if (node.key === key) {
+            if (prev) {
+              // bypass node
+              prev.nextNode = node.nextNode;
+            } else {
+              // removing head of bucket
+              bucketArray[i] = node.nextNode;
+            }
+            // optional: clear removed node
+            node.nextNode = null;
+            return true;
+          }
+          prev = node;
+          node = node.nextNode;
+        }
+      }
+      return false;
+    },
+    length() {
+      let length = 0;
+
+      for (const k in bucketArray) {
+        let node = bucketArray[k];
+        while (node) {
+          node = node.nextNode;
+          length++;
+        }
+      }
+      return length;
+    },
     array() {
       // expandHashMap();
       // console.log(capacityCounter);
@@ -115,4 +151,5 @@ test.set("lion", "golden");
 test.set("barbies", "milky");
 
 console.log(test.array());
-console.log(test.has("lion"));
+console.log(test.length());
+// console.log(test.remove("hats"));

@@ -1,4 +1,3 @@
-
 const nodeFactory = (value, nextNode = null) => {
   return { value, nextNode };
 };
@@ -51,7 +50,7 @@ const linkedListsFactory = () => {
       return cur ? cur.value : undefined;
     },
     pop() {
-      if (!head) return undefined.
+      if (!head) return undefined;
       // remove head and return its value
       const removed = head;
       head = head.nextNode;
