@@ -125,6 +125,18 @@ const hashMap = () => {
     clear() {
       for (let i in bucketArray) bucketArray[i] = null;
     },
+    keys() {
+      let arrayWithKeys = [];
+      for (let i in bucketArray) {
+        let node = bucketArray[i];
+
+        while (node) {
+          arrayWithKeys.push(node.key);
+          node = node.nextNode;
+        }
+      }
+      return arrayWithKeys;
+    },
     array() {
       // expandHashMap();
       // console.log(capacityCounter);
@@ -154,6 +166,6 @@ test.set("lion", "golden");
 test.set("barbies", "milky");
 
 // console.log(test.length());
-console.log(test.clear());
+console.log(test.keys());
 console.log(test.array());
 // console.log(test.remove("hats"));
