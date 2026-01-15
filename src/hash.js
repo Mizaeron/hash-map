@@ -122,6 +122,9 @@ const hashMap = () => {
       }
       return length;
     },
+    clear() {
+      for (let i in bucketArray) bucketArray[i] = null;
+    },
     array() {
       // expandHashMap();
       // console.log(capacityCounter);
@@ -150,6 +153,7 @@ test.set("kite", "pink");
 test.set("lion", "golden");
 test.set("barbies", "milky");
 
+// console.log(test.length());
+console.log(test.clear());
 console.log(test.array());
-console.log(test.length());
 // console.log(test.remove("hats"));
