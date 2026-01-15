@@ -148,6 +148,17 @@ const hashMap = () => {
       }
       return values;
     },
+    entries() {
+      let arrayEntries = [];
+      for (let i in bucketArray) {
+        let node = bucketArray[i];
+        while (node) {
+          arrayEntries.push([node.key, node.value]);
+          node = node.nextNode;
+        }
+      }
+      return arrayEntries;
+    },
     array() {
       // expandHashMap();
       // console.log(capacityCounter);
@@ -177,6 +188,6 @@ test.set("lion", "golden");
 test.set("barbies", "milky");
 
 // console.log(test.length());
-console.log(test.values());
+console.log(test.entries());
 console.log(test.array());
 // console.log(test.remove("hats"));
