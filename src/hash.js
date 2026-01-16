@@ -33,18 +33,32 @@ const hashMap = () => {
           currentCapacity = currentCapacity * 2;
           let newBucketArray = new Array(currentCapacity).fill(null);
 
+          // rewrite function to in for loop to incorporate linked lists
           bucketArray.forEach((bucket) => {
             if (bucket === null) {
               return;
             } else {
-              let newHashCode = hash(bucket.key);
-              newBucketArray[newHashCode] = nodeFactory(
-                bucket.key,
-                value,
-                null,
-              );
-              bucketArray = newBucketArray;
+              while (bucket) {
+                let newHashCode = hash(bucket.key);
+
+                // creates nextNode, but doesn't check beyond 2 deep and doesnt overwrite
+                if (newBucketArray[newHashCode] !== null) {
+                  newBucketArray[newHashCode].nextNode = nodeFactory(
+                    bucket.key,
+                    bucket.value,
+                    null,
+                  );
+                } else {
+                  newBucketArray[newHashCode] = nodeFactory(
+                    bucket.key,
+                    bucket.value,
+                    null,
+                  );
+                }
+                bucket = bucket.nextNode;
+              }
             }
+            bucketArray = newBucketArray;
           });
         }
         return;
@@ -170,7 +184,6 @@ const hashMap = () => {
 const nodeFactory = (key, value, nextNode = null) => {
   return { key, value, nextNode };
 };
-
 const test = hashMap();
 
 test.set("apple", "red");
@@ -186,8 +199,10 @@ test.set("jacket", "blue");
 test.set("kite", "pink");
 test.set("lion", "golden");
 test.set("barbies", "milky");
+test.set("moon", "silver");
+test.set("moons", "silvers");
 
 // console.log(test.length());
-console.log(test.entries());
+// console.log(test.entries());
 console.log(test.array());
 // console.log(test.remove("hats"));
